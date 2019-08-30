@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 from django.views.generic import ListView
-# from roles.models import ClinicUserManager
+from roles.models import ClinicUser
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 # LoginRequiredMixin é uma condição pra so fazer o que quer se estiver logado antes
@@ -18,3 +18,9 @@ class UserLoginView(LoginView):
 
 class UserLogoutView(LoginRequiredMixin, LogoutView):
     pass 
+
+class UserDetailView(generic.DetailView):
+    model = ClinicUser
+    context_object_name = 'roles'
+    template_name = 'users/detalhes.html'
+    ordering = ['-created_at']

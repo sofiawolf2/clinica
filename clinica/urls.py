@@ -22,4 +22,5 @@ urlpatterns = [
     #apps
     path('',include('core.urls')),
     path('',include('roles.urls')),
+    path('',include('exames.urls')),
 ]

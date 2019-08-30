@@ -1,0 +1,29 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block title %} 
+Clínica | Seus Exames 
+{% endblock title %} 
+
+{% block scripts %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+{% endblock scripts %} 
+
+{% block body %} 
+
+<h3>Seus Exames</h3>
+
+{% for a in users.examesFromPaciente.all %}
+<p>Exame: {{a.texto}}</p>
+{% endfor %}
+
+<div class= "details">
+<p>Médico: {{users.medico.nome}}</p>
+<p>E-mail do Médico: {{users.medico.email}}</p>
+<p>Criado: {{users.created_at}}</p>
+<p>Último acesso: {{users.last_login}}</p>
+<!-- <p>Superusuário: {{users.is_staff}}</p> -->
+</div>
+ 
+
+{% endblock body %}
