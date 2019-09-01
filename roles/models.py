@@ -79,7 +79,7 @@ class Paciente(ClinicUser):
 # ////////////////////////////////////////////////////////////
 
 class Medico(ClinicUser):
-    crm = models.CharField(max_length=7, unique=True)
+    crm = models.CharField(max_length=4, unique=True)
 
     def save(self, *args, **kwargs):
         self.is_doctor = True
