@@ -1,0 +1,19 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% load widget_tweaks %}{% block title %} Exames {% endblock title %} {% block scripts %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}"> {% endblock scripts %} {% block body %}
+
+<h2>EXAME</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %} 
+    <p> Médico: {% render_field form.medico %}</p>
+    <p> Paciente: {% render_field form.paciente %}</p>
+    <!-- <p> Imagem: {% render_field form.imagem %}</p> -->
+    <p> Laudo: {% render_field form.texto %}</p>
+    
+   
+    <input type="submit" value="Enviar">
+</form>
+
+{% endblock body %}

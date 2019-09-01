@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'exames',
     #**
     'roles',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

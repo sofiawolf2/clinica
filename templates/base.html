@@ -36,11 +36,11 @@
 
                 {% if not request.user.is_authenticated  %}
                 <li><a class="names" href="{% url 'users:logar_user' %}">Login</a></li>
-s
                 {% else %}
-                <li><a class="names" href="{% url 'users:detalhes_user' request.user.id %}">Olá, {{ request.user.nome }} </a></li>
-                
-                <!-- <li>Olá, {{request.user}}</li> -->
+                <li><a class="names" href="{% url 'users:detalhes_user' request.user.id %}">Olá, {{ request.user.nome }} </a></li> 
+                  {% if request.user.is_doctor %}
+                  <li><a class="names" href="{% url 'exames:add_exames' %}">Criar exame</a></li>
+                  {% endif %}   
                 <li><a class="names" href="{% url 'users:logout_user' %}">Sair</a></li>
                 {% endif %}
 
