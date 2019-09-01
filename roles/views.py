@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.views import generic
 from django.views.generic import ListView
-from roles.models import ClinicUser
+from roles.models import ClinicUser, Paciente, Medico
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 # LoginRequiredMixin é uma condição pra so fazer o que quer se estiver logado antes
 
 from django.urls import reverse_lazy

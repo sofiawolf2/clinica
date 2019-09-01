@@ -3,6 +3,8 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+# ///////////////////////////////////////////
+from roles.models import Paciente, Medico
 
 from roles.models import ClinicUser, Paciente, Medico
 
@@ -98,6 +100,8 @@ class PatientCreationForm(forms.ModelForm):
             raise forms.ValidationError("Passwords don't match")
         return password2
 
+    
+
     def save(self, commit=True):
         # Save the provided password in hashed format
         patient = super().save(commit=False)
@@ -106,6 +110,8 @@ class PatientCreationForm(forms.ModelForm):
         if commit:
             patient.save()
         return patient
+
+
 
 
 class PatientAdmin(admin.ModelAdmin):
@@ -150,6 +156,8 @@ class MedicoUserCreationForm(forms.ModelForm):
         if commit:
             medico.save()
         return medico
+
+
 
 
 class MedicoAdmin(admin.ModelAdmin):
