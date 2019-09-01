@@ -3,6 +3,9 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.auth import admin as auth_admin
+from django.contrib.auth import forms as auth_forms
+
 
 from roles.models import ClinicUser, Paciente, Medico
 
@@ -107,19 +110,65 @@ class PatientCreationForm(forms.ModelForm):
             patient.save()
         return patient
 
+class PatientChangeForm(forms.ModelForm):
+    password = ReadOnlyPasswordHashField()
+
+    class Meta:
+        model = Paciente
+        fields = ['nome', 'email', 'rg', 'cpf']
+
+    def clean_password(self):
+        # Regardless of what the user provides, return the initial value.
+        # This is done here, rather than on the field, because the
+        # field does not have access to the initial value
+        return self.initial["password"]
+
 
 class PatientAdmin(admin.ModelAdmin):
-    #form = PatientCreationForm
+    
+    change_form = PatientChangeForm
     add_form = PatientCreationForm
-
+ 
     list_display = ('nome', 'email', 'rg', 'cpf')
-    fieldsets = (
-        ('Informções', {'fields': ('nome', 'email', 'password', 'rg', 'cpf')}),
+    #fieldsets = (
+    #     ('Informações', {'fields': ('nome', 'email', 'password', 'rg', 'cpf')}),
+    # )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('nome', 'email', 'rg', 'cpf', 'password1', 'password2')}
+        ),
     )
 
     search_fields = ('nome', 'email', 'rg', 'cpf')
     ordering = ('email',)
     filter_horizontal = ()
+
+    readonly_fields = ('last_login', )
+
+
+    def get_form(self, request, obj=None, **kwargs):
+        if not obj:
+            self.form = self.add_form
+        else:
+            self.form = self.change_form
+
+        return super(PatientAdmin, self).get_form(request, obj, **kwargs)
+    
+
+
+    
+    # change_form = PatientCreationForm
+    # add_form = PatientCreationForm
+
+    # list_display = ('nome', 'email', 'rg', 'cpf')
+    # fieldsets = (
+    #     ('Informções', {'fields': ('nome', 'email', 'password', 'rg', 'cpf')}),
+    # )
+
+    # search_fields = ('nome', 'email', 'rg', 'cpf')
+    # ordering = ('email',)
+    # filter_horizontal = ()
 
 # /////////////////////////////////////////////////////////////////////////////
 
@@ -132,7 +181,7 @@ class MedicoUserCreationForm(forms.ModelForm):
 
     class Meta:
         model = Medico
-        fields = fields = ['nome', 'email', 'crm']
+        fields = ['nome', 'email', 'crm']
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -151,16 +200,50 @@ class MedicoUserCreationForm(forms.ModelForm):
             medico.save()
         return medico
 
+class MedicoUserChangeForm(forms.ModelForm):
+    password = ReadOnlyPasswordHashField()
+
+    class Meta:
+        model = Medico
+        fields = ['nome', 'email', 'crm']
+
+    def clean_password(self):
+        # Regardless of what the user provides, return the initial value.
+        # This is done here, rather than on the field, because the
+        # field does not have access to the initial value
+        return self.initial["password"]
+
 
 class MedicoAdmin(admin.ModelAdmin):
-    #form = PatientCreationForm
-    add_form = MedicoUserCreationForm
 
+    change_form = MedicoUserChangeForm
+    add_form = MedicoUserCreationForm
+ 
     list_display = ('nome', 'email', 'crm')
-    fieldsets = (
-        ('Informções', {'fields': ('nome', 'email', 'password', 'crm')}),
+    # fieldsets = (
+    #     (None, {'fields': ('nome', 'email', 'password')}),
+    #     ('Permissions', {'fields': ('is_admin', 'is_doctor', 'is_patient')}),
+    # )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('nome', 'email', 'crm', 'password1', 'password2')}
+        ),
     )
 
     search_fields = ('nome', 'email', 'crm')
     ordering = ('email',)
     filter_horizontal = ()
+
+    readonly_fields = ('last_login', )
+
+
+    def get_form(self, request, obj=None, **kwargs):
+        if not obj:
+            self.form = self.add_form
+        else:
+            self.form = self.change_form
+
+        return super(MedicoAdmin, self).get_form(request, obj, **kwargs)
+
+    
