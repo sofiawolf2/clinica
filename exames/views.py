@@ -12,7 +12,7 @@ class ExameCreateView(LoginRequiredMixin, CreateView):
     model = Exame
     form_class = ExameCreateForm
     template_name = 'exames/addexames.html'
-    success_url = reverse_lazy('exames:list_exames')
+    success_url = reverse_lazy('core:index')
     # context_object_name = 'addPosts'
 
 # class ExameListView(LoginRequiredMixin, ListView):
