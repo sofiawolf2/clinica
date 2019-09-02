@@ -11,16 +11,16 @@ Clínica | Seus Exames
 
 {% block body %} 
 
-<h3>Seus Exames</h3>
+<h3>Exames de {{roles.nome}}</h3><br>
 
-{% for a in users.examesFromPaciente.all %}
-<p>Exame: {{a.texto}}</p>
-<div class= "details">
-    <p>Médico: {{users.medico.nome}}</p>
-    <p>E-mail do Médico: {{users.medico.email}}</p>
-    <p>Criado: {{users.created_at}}</p>
-    <p>Último acesso: {{users.last_login}}</p>
-    <!-- <p>Superusuário: {{users.is_staff}}</p> -->
+{% for a in roles.examesFromPaciente.all %}
+<div class= "details"></div>
+    <p>Exame: {{a.texto}}</p>
+    <p>Médico: {{a.medico.nome}}</p>
+    <p>E-mail do Médico: {{a.medico.email}}</p>
+    <p>Criado: {{a.created_at}}</p>
+    <br>
+    <br>
 </div>
 {% endfor %}
 

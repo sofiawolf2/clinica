@@ -11,17 +11,17 @@ Clínica | Exames
 
 {% block body %} 
 
-<h3>Exames feitos</h3>
+<h3>Exames feitos por {{ roles.nome }}</h3><br>
 
-{% for a in users.examesFromMedico.all %}
-<p>Exame: {{a.texto}}</p>
-<div class= "details">
-    <p>Paciente: {{users.paciente.nome}}</p>
-    <p>E-mail do paciente: {{users.paciente.email}}</p>
-    <p>Criado: {{users.created_at}}</p>
-    <p>Último acesso: {{users.last_login}}</p>
-    <!-- <p>Superusuário: {{users.is_staff}}</p> -->
-    </div>
+{% for a in roles.examesFromMedico.all %}
+<div class= "details"></div>
+    <p>Exame: {{a.texto}}</p>
+    <p>Paciente: {{a.paciente.nome}}</p>
+    <p>E-mail do Paciente: {{a.paciente.email}}</p>
+    <p>Criado: {{a.created_at}}</p>
+    <br>
+    <br>
+</div>
 {% endfor %}
 
 
