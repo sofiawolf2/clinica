@@ -34,15 +34,19 @@
                 <!-- <li><a class="names" href="{ url 'exames:ver_exames' }">Exames</a></li>
                 <li><a class="names" href="{ url 'exames:criar_exame' }">Adicionar Exame</a></li> -->
 
-                {% if not request.user.is_authenticated  %}
-                <li><a class="names" href="{% url 'users:logar_user' %}">Login</a></li>
+              {% if not request.user.is_authenticated  %}
+              <li><a class="names" href="{% url 'users:logar_user' %}">Login</a></li>
+              {% else %}
+                {% if request.user.is_doctor %}
+                <li><a class="names" href="{% url 'users:detalhes_medico' request.user.id %}">Olá, {{ request.user.nome }} </a></li> 
+                <li><a class="names" href="{% url 'exames:add_exames' %}">Criar exame</a></li>
+                {% elif request.user.is_patient %}  
+                <li><a class="names" href="{% url 'users:detalhes_paciente' request.user.id %}">Olá, {{ request.user.nome }} </a></li>
                 {% else %}
-                <li><a class="names" href="{% url 'users:detalhes_user' request.user.id %}">Olá, {{ request.user.nome }} </a></li> 
-                  {% if request.user.is_doctor %}
-                  <li><a class="names" href="{% url 'exames:add_exames' %}">Criar exame</a></li>
-                  {% endif %}   
-                <li><a class="names" href="{% url 'users:logout_user' %}">Sair</a></li>
-                {% endif %}
+                <li><a class="names" href=>Olá, {{ request.user.nome }} </a></li>
+                {% endif %} 
+              <li><a class="names" href="{% url 'users:logout_user' %}">Sair</a></li>
+              {% endif %}
 
       </ul>
     </div>

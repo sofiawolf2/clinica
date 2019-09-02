@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Exame(models.Model):
-    medico = models.ForeignKey("roles.Medico", verbose_name='medico',on_delete=models.CASCADE)
+    medico = models.ForeignKey("roles.Medico", verbose_name='medico',
+        related_name = 'examesFromMedico',on_delete=models.CASCADE)
     paciente = models.ForeignKey("roles.Paciente", verbose_name='paciente',
         related_name = 'examesFromPaciente' , on_delete=models.CASCADE)
     texto = models.TextField(verbose_name='texto')

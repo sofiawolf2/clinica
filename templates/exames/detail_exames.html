@@ -1,0 +1,27 @@
+<!-- {% extends 'base.html' %} 
+{% load static %} 
+
+{% block title %} 
+Clinica | Exam Details 
+{% endblock title %} 
+
+{% block scripts %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+{% endblock scripts %} 
+
+{% block body %}
+
+<p>Médico: {{Exame.medico}}</p>
+<p>Paciente: {{Exame.paciente}}</p>
+<p>Laudo: {{Exame.texto}}</p>
+<p>Data: {{Exame.created_at}}</p>
+
+
+{% for p in posts.commentsFromPost.all %}
+
+<p>Comentário: {{p.comentario}}</p>
+
+{% endfor %}
+
+
+{% endblock body %} -->

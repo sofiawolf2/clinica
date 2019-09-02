@@ -20,8 +20,15 @@ class UserLoginView(LoginView):
 class UserLogoutView(LoginRequiredMixin, LogoutView):
     pass 
 
-class UserDetailView(generic.DetailView):
-    model = ClinicUser
+class MedicoDetailView(generic.DetailView):
+    model = Medico
     context_object_name = 'roles'
-    template_name = 'users/detalhes.html'
+    template_name = 'users/detalhesmedico.html'
     ordering = ['-created_at']
+
+class PacienteDetailView(generic.DetailView):
+    model = Paciente
+    context_object_name = 'roles'
+    template_name = 'users/detalhespaciente.html'
+    ordering = ['-created_at']
+

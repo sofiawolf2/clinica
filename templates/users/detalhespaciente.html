@@ -15,15 +15,16 @@ Clínica | Seus Exames
 
 {% for a in users.examesFromPaciente.all %}
 <p>Exame: {{a.texto}}</p>
+<div class= "details">
+    <p>Médico: {{users.medico.nome}}</p>
+    <p>E-mail do Médico: {{users.medico.email}}</p>
+    <p>Criado: {{users.created_at}}</p>
+    <p>Último acesso: {{users.last_login}}</p>
+    <!-- <p>Superusuário: {{users.is_staff}}</p> -->
+</div>
 {% endfor %}
 
-<div class= "details">
-<p>Médico: {{users.medico.nome}}</p>
-<p>E-mail do Médico: {{users.medico.email}}</p>
-<p>Criado: {{users.created_at}}</p>
-<p>Último acesso: {{users.last_login}}</p>
-<!-- <p>Superusuário: {{users.is_staff}}</p> -->
-</div>
+
  
 
 {% endblock body %}
